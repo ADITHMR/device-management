@@ -276,6 +276,7 @@ class DeviceController {
   async getIsModified(req, res) {
     try {
       const { serialNumber,reset } = req.body;
+      console.log("serialNumber",serialNumber);
 
       const isModified = await DeviceService.getIsDeviceModified(
         serialNumber,reset
