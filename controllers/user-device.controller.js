@@ -277,6 +277,7 @@ class DeviceController {
     try {
       const { serialNumber } = req.body;
       const { reset } = req.body;
+      console.log(req.headers['content-type']);
       console.log("serialNumber",serialNumber);
       console.log(req.body);
 
