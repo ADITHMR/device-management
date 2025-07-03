@@ -372,13 +372,14 @@ class ProjectService {
         },
         { transaction }
       );
-      //!-------------------------------Update flag------------------------------
+     
+      await transaction.commit();
+       //!-------------------------------Update flag------------------------------
       await device.update(
         { isModified: true }, // new value
         { where: { id: deviceId } } // which row to update
       );
       //!-------------------------------------------------------------
-      await transaction.commit();
 
       return {
         acquisition,
