@@ -275,13 +275,21 @@ class DeviceController {
 //!-----Check the user added or removed any projects--------------
   async getIsModified(req, res) {
     try {
-      const { serialNumber,reset } = req.body;
+      const { serialNumber } = req.body;
+      const { reset } = req.body;
       console.log("serialNumber",serialNumber);
       console.log(req.body);
 
       const isModified = await DeviceService.getIsDeviceModified(
         serialNumber,reset
       );
+
+      if (!serialNumber) {
+        return res.status(404).json({
+          success: false,
+          message: "Provide a 'serialNumber' to check modification status",
+        });
+      }
 
       if (!isModified) {
         return res.status(404).json({
