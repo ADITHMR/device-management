@@ -273,6 +273,7 @@ class DeviceService {
   }
    async getIsDeviceModified(serialNumber,reset) {
     try {
+      console.log("serialNumber",serialNumber);
       const device = await Device.findOne({
         where: { serialNumber }
       });
