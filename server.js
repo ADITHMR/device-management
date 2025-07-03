@@ -10,6 +10,7 @@ const fs = require('fs');
 const { performInitialSetup } = require("./services/initial-setup.service");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // For form data
 app.use(morgan("dev"));
 
 // Add this right after your other middleware (app.use statements)
