@@ -1,0 +1,1 @@
+project_topic_list = ['FireGuard: Intelligent Fire Detection', 'SentiLume: Intelligent street illumination', 'CountMaster: Student headcount Tracker', 'DistanceX: Digital Range Finder', 'AutoGate: Self opening gate']

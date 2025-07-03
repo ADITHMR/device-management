@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Responsive sidebar form with dynamic image layout" />
+  <title>Roboninjaz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+     html,
+      body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        font-family: "Arial", sans-serif;
+        background-color: #181818;
+        color: #ffffff;
+      }
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-top: 3%; /* Adjust this to control the space between the top bar and the content */
+      }
+      .content-container {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .top-bar {
+        background-color: #333;
+        color: #ffffff;
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+      .top-bar .logo {
+        
+        height: 40px;
+      margin-right: 10px;
+      max-width: 100%;
+      }
+      .top-bar img{
+      height: 85px; /* Adjust the height as needed */
+      width: auto;  /* Maintain aspect ratio */
+      max-width: 100%; /* Ensure it doesn't exceed its container */
+    }
+
+      .top-bar .btn-home {
+        background-color: #0b79d0;
+        color: #ffffff;
+        border: none;
+        padding: 12px 18px;
+        font-size: 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .top-bar .btn-home:hover {
+        background-color: #0977c7;
+      }
+
+      .content-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 70px;
+        height: calc(100vh - 70px);
+      }
+
+      .form-sidebar {
+        background-color: #282c34;
+        padding: 30px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        flex: 1 1 300px;
+        max-width: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+  
+
+      .image-container {
+        flex: 2 1 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 20px;
+      }
+
+      .image-container img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-control,
+      .form-select {
+        background-color: #3d444f;
+        border: 1px solid #444c56;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: #ffffff;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: #03a9f4;
+        outline: none;
+      }
+
+      .btn-primary {
+        background-color: #03a9f4;
+        border: none;
+        padding: 12px 24px;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .btn-primary:hover {
+        background-color: #0288d1;
+      }
+
+      footer {
+        background-color: #333;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+      }
+    
+      @media (max-width: 768px) {
+        .form-sidebar {
+          max-width: 100%;
+          flex: 1 1 100%;
+          text-align: center;
+        }
+
+        .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+      }
+      
+      .form-description {
+        margin: 15px 0 25px;
+        padding: 50px;
+        background-color: #3b3838;
+        border-left: 4px solid #03a9f4;
+        border-radius: 10px;
+        font-size: 1rem;
+        line-height: 1.6;
+        height: fit-content;
+        color: #e0e0e0;
+        margin-bottom: 20px;
+      }
+
+      .form-description p {
+        margin: 0;
+      }
+
+      .form-description strong {
+        color: #03a9f4; /* Highlight important terms */
+      }
+      .description-and-image {
+        display: flex;
+        flex: 2 1 600px;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+  </style>
+</head>
+
+<body>
+   <!-- Fixed Top Bar -->
+   <div class="top-bar">
+    <div>
+        <img src="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/RoboNinjalogogreen.png" alt="Logo" >
+    </div>
+    <h1>Roboninjaz - Project Configuration</h1>
+    <a href="/" class="btn-home">Home</a>
+  </div>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <!-- Content -->
+    <div class="content-container">
+      <!-- Sidebar Form -->
+      <div class="form-sidebar">
+        <h5 id="form-heading">{heading} </h5>
+        <h2 id="form-heading">Settings:</h2>
+        <form id="dynamic-form" action="/project" method="POST"></form>
+      </div>
+       <!-- New Description Section -->
+       <div class="description-and-image">
+       <h2 id="form-heading">{heading}  </h2>
+          <div id="form-description" class="form-description">
+            <p><strong>Overview:</strong> {description}</p>
+          </div>
+          <div>
+            <div class="image-container">
+            <a id="imageLink" >
+              <img
+                id="dynamic-image"
+                alt="Project Image: Check the internet connection"
+              />
+              </a>
+            </div>
+          </div>
+        </div>
+    </div> 
+
+    <!-- Footer -->
+    <footer>
+      <a class="btn-home" href="/checkUpdate">Check for Update</a>
+      <p>www.roboninjaz.com | Powered by Prosol Technologies</p>
+    </footer>
+  </div>
+
+  <!-- Script for Dynamic Form and Image Handling -->
+  <script type="application/json" id="inputs-list">
+    {config_list}
+
+  </script>
+  <script>
+    
+
+     // Function to generate the form dynamically based on the JSON data
+    function generateForm() {
+      const inputsList = JSON.parse(document.getElementById('inputs-list').textContent);
+      const form = document.getElementById('dynamic-form');
+
+      inputsList.forEach(input => {
+        const div = document.createElement('div');
+        div.classList.add('mb-3');
+
+        const label = document.createElement('label');
+        label.classList.add('form-label');
+        label.setAttribute('for', input.name);
+        label.textContent = input.label;
+        div.appendChild(label);
+        
+
+        if (input.type === 'radio') {
+          input.options.forEach(option => {
+            const divRadio = document.createElement('div');
+            divRadio.classList.add('form-check', 'form-check-inline');
+
+            const radioInput = document.createElement('input');
+            radioInput.classList.add('form-check-input');
+            radioInput.setAttribute('type', 'radio');
+            radioInput.setAttribute('id', option);
+            radioInput.setAttribute('name', input.name);
+            radioInput.setAttribute('value', option);
+            radioInput.required = input.required;
+            if (input.defaultValue && option === input.defaultValue) radioInput.checked = true;
+
+            const radioLabel = document.createElement('label');
+            radioLabel.classList.add('form-check-label');
+            radioLabel.setAttribute('for', option);
+            radioLabel.textContent = option;
+
+            divRadio.appendChild(radioInput);
+            divRadio.appendChild(radioLabel);
+            div.appendChild(divRadio);
+            
+          });
+          const bottomSeparator = document.createElement('hr');
+           bottomSeparator.classList.add('bottom-separator'); // Add custom bottom separator styling
+          div.appendChild(bottomSeparator);
+        } else if (input.type === 'select') {
+          const select = document.createElement('select');
+          select.classList.add('form-select');
+          select.setAttribute('name', input.name);
+          select.setAttribute('id', input.name);
+          select.required = input.required;
+
+          input.options.forEach(option => {
+            const opt = document.createElement('option');
+            opt.value = option;
+            opt.textContent = option;
+            select.appendChild(opt);
+            if (input.defaultValue && option === input.defaultValue) opt.selected = true;
+          });
+
+          div.appendChild(select);
+          const bottomSeparator = document.createElement('hr');
+           bottomSeparator.classList.add('bottom-separator'); // Add custom bottom separator styling
+          div.appendChild(bottomSeparator);
+        } else if (input.type === 'checkbox') {
+          
+          const checkbox = document.createElement('input');
+          checkbox.classList.add('form-check-input');
+          checkbox.setAttribute('type', 'checkbox');
+          checkbox.setAttribute('id', input.name);
+          checkbox.setAttribute('name', input.name);
+          checkbox.setAttribute('value', 'false');
+          if (input.defaultValue) checkbox.checked = input.defaultValue;
+
+          const checkboxLabel = document.createElement('label');
+          checkboxLabel.classList.add('form-check-label');
+          checkboxLabel.setAttribute('for', input.name);
+          // checkboxLabel.textContent = input.label;
+          // Create and add a top separator (horizontal line)
+         
+
+          div.appendChild(checkbox);
+          div.appendChild(checkboxLabel);
+          const bottomSeparator = document.createElement('hr');
+    bottomSeparator.classList.add('bottom-separator'); // Add custom bottom separator styling
+    div.appendChild(bottomSeparator);
+          checkbox.addEventListener('change', function () {
+    if (checkbox.checked) {
+      checkbox.setAttribute('value', 'true'); // Set the value to true when checked
+    } else {
+      checkbox.setAttribute('value', 'false'); // Set the value to false when unchecked
+    }
+  });
+        }
+        else if (input.type === 'project') {
+          const hiddenInput = document.createElement('input');
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = 'project';
+          hiddenInput.value = input.name;
+          form.appendChild(hiddenInput);
+        }
+        else {
+          const inputField = document.createElement('input');
+          inputField.classList.add('form-control');
+          inputField.setAttribute('type', input.type);
+          inputField.setAttribute('name', input.name);
+          inputField.setAttribute('id', input.name);
+          inputField.setAttribute('placeholder', input.placeholder);
+          if (input.min) inputField.setAttribute('min', input.min);
+          if (input.max) inputField.setAttribute('max', input.max);
+          if (input.step) inputField.setAttribute('step', input.step);
+          if (input.value) inputField.setAttribute('value', input.value);
+          if (input.defaultValue) inputField.value = input.defaultValue;
+          inputField.required = input.required;
+
+          div.appendChild(inputField);
+          const bottomSeparator = document.createElement('hr');
+           bottomSeparator.classList.add('bottom-separator'); // Add custom bottom separator styling
+          div.appendChild(bottomSeparator);
+          
+        }
+
+        form.appendChild(div);
+
+      });
+
+      // Add the submit button
+      const submitButton = document.createElement('button');
+      submitButton.type = 'submit';
+      submitButton.classList.add('btn', 'btn-primary');
+      submitButton.textContent = 'Submit';
+      form.appendChild(submitButton);
+     // Attach submit event listener
+     
+    }
+
+    function setDynamicImage() {
+      const formHeading = document.getElementById("form-heading").textContent;
+      const firstWord = formHeading.split(":")[0].trim();
+      const imageElement = document.getElementById("dynamic-image");
+      imageElement.src = `https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/${firstWord}.jpeg`;
+      document.getElementById('imageLink').href = `https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/${firstWord}.jpeg`; // Update the image link
+    }
+
+    window.onload = function () {
+      generateForm();
+      setDynamicImage();
+    };
+  </script>
+</body>
+
+</html>
+

@@ -1,0 +1,7 @@
+{
+    "project_name": "DistanceX: Digital Range Finder",
+    "params": {
+        "trig_pin": "16",
+        "echo_pin": "17"
+    }
+}

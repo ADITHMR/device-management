@@ -1,0 +1,133 @@
+[
+    {
+        "files": [
+            "config.txt"
+        ],
+         "folder": "//activity1"
+    },
+     {
+        "files": [
+            "config.txt"
+        ],
+         "folder": "//activity2"
+    },
+     {
+        "files": [
+            "config.txt"
+        ],
+         "folder": "//activity3"
+    },
+     {
+        "files": [
+            "config.txt"
+        ],
+         "folder": "//activity4"
+    },
+     {
+        "files": [
+            "config.txt"
+        ],
+         "folder": "//activity5"
+    },
+     {
+        "files": [
+            "display.py",
+             "ir_decode.py",
+             "oled.py",
+             "tm1637.py"
+        ],
+         "folder": "//drivers"
+    },
+     {
+        "files": [
+            "activity1.html"
+            
+        ],
+         "folder": "//html"
+    },
+     {
+        "files": [
+            "__init__.py",
+             "acquire.py",
+             "mce.py",
+             "nec.py",
+             "philips.py",
+             "print_error.py",
+             "sony.py",
+             "test.py"
+        ],
+         "folder": "//ir_rx"
+    },
+     {
+        "files": [
+            "analog_buzzer.py",
+             "custom_neopixel.py",
+             "pkg_resources.py",
+             "servo.py",
+             "ssd1306.py",
+             "traceback.py",
+             "ulogging.py"
+        ],
+         "folder": "//lib"
+    },
+     {
+        "files": [
+            "config.html",
+             "config_page.html",
+             "connect_wifi.py",
+             "credentials.html",
+             "esp_as_AP.py",
+             "get_project_html.py",
+             "index.html",
+             "index_page.html",
+             "message.html",
+             "project_config_update.py",
+             "project_page.html",
+             "webServer.py",
+             "web_page.py"
+        ],
+         "folder": "//local_host"
+    },
+     {
+        "files": [
+            "__init__.py",
+             "example_webapp.py",
+             "example_webapp2.py",
+             "utils.py"
+        ],
+         "folder": "//picoweb"
+    },
+     {
+        "files": [
+            "Save_Files_List.py",
+             "api.py",
+             "file_mgr.py",
+             "route_activity.py",
+             "run_activity.py",
+             "save_html.py"
+        ],
+         "folder": "//process"
+    },
+     {
+        "files": [
+            "projectList.py",
+             "project_description.dat",
+             "project_routing.json"
+        ],
+         "folder": "//project"
+    },
+     {
+        "files": [
+            "boot.py",
+             "files_list.txt",
+             "machine_id.py",
+             "main.py",
+             "ota_update.py",
+             "pin_mapping.py",
+             "utils.py",
+             "version.dat",
+             "web_data.html"
+        ],
+         "folder": "/"
+    }
+]

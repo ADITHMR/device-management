@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Control your ESP32 using a web interface." />
+  <title>Roboninjaz</title>
+  <meta name="favicon" href="https://img.icons8.com/?size=80&id=dxoYK8bxqiJr&format=png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <style>
+    /* Body and Global Styles */
+    body {
+      background-color: #1d1f20;
+      color: #f5f5f5;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      
+    }
+    .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-top: 3%; /* Adjust this to control the space between the top bar and the content */
+    }
+
+    /* Fixed Top Bar */
+    .top-bar {
+      background-color: #000000;
+      color: white;
+      width: 100%;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .top-bar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .top-bar .logo {
+      height: 40px;
+      margin-right: 10px;
+      max-width: 100%;
+    }
+
+    .top-bar .btn-home {
+      background-color: #16a085;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .top-bar .btn-home:hover {
+      background-color: #1abc9c;
+    }
+
+    /* Main Layout Styles */
+    .main-layout {
+      display: flex;
+      margin-top: 80px; /* Add margin to prevent content from hiding behind the fixed top bar */
+      flex: 1;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      background-color: #2c2f33;
+      width: 250px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      flex: 1; /* Sidebar takes up 1 part of the space */
+    }
+
+    /* Heading Styles inside Sidebar */
+    h2 {
+      font-size: 2.2rem;
+      color: #03a9f4;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .form-container {
+      margin-bottom: 20px;
+    }
+
+    .form-control,
+    .form-select,
+    .form-check-input {
+      background-color: #444c56;
+      border: 1px solid #333;
+      color: #ddd;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border-radius: 5px;
+      box-shadow: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-control:focus,
+    .form-select:focus,
+    .form-check-input:focus {
+      background-color: #555c66;
+      border-color: #03a9f4;
+      outline: none;
+    }
+
+    /* Submit Button */
+    .btn-primary {
+      background-color: #03a9f4;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin-top: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0288d1;
+    }
+
+    /* Image Container */
+    .image-container {
+      flex: 2; /* Image takes 2 parts of the space */
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Footer Styling */
+    footer {
+      padding: 20px;
+      text-align: center;
+      background-color: #000000;
+      width: 100%;
+      color: white;
+      position: relative;
+    }
+
+    footer form button {
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-size: 18px;
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    footer form button:hover {
+      background-color: #e67e22;
+    }
+
+    /* Responsive Design Enhancements */
+    @media (max-width: 768px) {
+      .main-layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        margin-bottom: 20px; /* Adjust margin when stacked */
+      }
+
+      .image-container {
+        width: 100%;
+      }
+
+      .image-container img {
+        width: 100%;
+      }
+
+      footer {
+        margin-top: 20px;
+      }
+    }
+    .top-bar img{
+      height: 85px; /* Adjust the height as needed */
+      width: auto;  /* Maintain aspect ratio */
+      max-width: 100%; /* Ensure it doesn't exceed its container */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Fixed Top Bar with Home Button and Update Firmware Button -->
+  
+  <div class="top-bar">
+    <div>
+        <img src="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/RoboNinjalogogreen.png" alt="Logo" >
+        
+    </div>
+    <h1>RoboNinjaz 1.0</h1>
+    <a href="/" class="btn-home">Home</a>
+  </div>
+  <div class="content-wrapper"> 
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+      <h2 class="mb-4">Project Configuration</h2>
+      <form method="POST">
+        <div class="form-container">
+          <h3 class="mb-4">S/N: PB0b2c5400001</h3>
+          <label for="exampleDropdown" class="form-label">Select Project: </label>
+          <!-- Dropdown for selecting project -->
+          <select id="mydropdown" name="selectedItem" class="form-select" required>
+<option value="">--Select Project--</option>
+<option value="FireGuard: Intelligent Fire Detection">FireGuard: Intelligent Fire Detection</option>
+<option value="SentiLume: Intelligent street illumination">SentiLume: Intelligent street illumination</option>
+<option value="CountMaster: Student headcount Tracker">CountMaster: Student headcount Tracker</option>
+<option value="DistanceX: Digital Range Finder">DistanceX: Digital Range Finder</option>
+<option value="AutoGate: Self opening gate">AutoGate: Self opening gate</option>
+</select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="nextButton" style="display: none;">Next</button>
+      </form>
+    </div>
+
+    <!-- Image Container -->
+    <div class="image-container">
+    <a id="imageLink" href="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/default.jpeg">
+      <img id="image" src="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/default.jpeg" alt="Selected Image">
+      </a>
+    </div>
+  </div>
+</div>
+
+  <!-- Footer Section with Firmware Update Button -->
+  <footer>
+    <a class="btn-home" href="/checkUpdate">Check for updates</a>
+    <p>roboninjaz.com | Powered by Prosol Technologies</p>
+  </footer>
+
+  <script>
+    // Function to handle the dropdown change event and update the image
+    document.getElementById('mydropdown').addEventListener("change", function () {
+      var selectedValue = this.value;
+      var image_name = selectedValue.split(":")[0]; // Remove spaces from selected value
+      var imgSrc=""
+      if(selectedValue==""){
+        imgSrc="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/default.jpeg"
+      }else{
+        imgSrc = "https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/" + image_name + ".jpeg";
+
+      }
+      document.getElementById('image').src = imgSrc; // Update the image source
+      document.getElementById('imageLink').href = imgSrc; // Update the image link
+
+      // Show or hide the "Next" button based on dropdown selection
+      var nextButton = document.getElementById('nextButton');
+      if (selectedValue === "") {
+        nextButton.style.display = "none"; // Hide the "Next" button
+      } else {
+        nextButton.style.display = "inline-block"; // Show the "Next" button
+      }
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+
+

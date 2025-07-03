@@ -1,0 +1,9 @@
+{
+    "project_name": "Luminous Play: LED light magic",
+    "params": {
+        "remote_enabled": "Enabled",
+        "remote_pin":"25",
+        "led_num": "12",
+        "strip_led_pin": "5"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "project_name": "CountMaster: Student headcount Tracker",
+    "params": {
+        "sensor_out_pin": "36",
+        "timeout_duration": "5",
+        "sensor_in_active_state": "Active Low",
+        "buzzer_pin": "32",
+        "sensor_in_pin": "39",
+        "sensor_out_active_state": "Active Low",
+        "is_buzzer_used":"Enabled"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "project_name": "FireGuard: Intelligent Fire Detection",
+    "params": {
+        "led_pin": "5",
+        "sensor_active_state": "Active Low",
+        "sensor_pin": "35",
+        "buzzer_Enable": "Enabled",
+        "led_strip_Enable": "Enabled",
+        "buzzer_pin": "32",
+        "led_num_pixels": "12"
+    }
+}

@@ -1,0 +1,1 @@
+{"project_name": "TouchFlow: Intelligent Fan Control", "params": {"fan_pin1": "12", "fan_pin2": "13", "fan_pin": "5", "buzzer_enabled": "true", "speed3": "63", "speed2": "5", "down_pin": "15", "speed6": "75", "buzzer_pin": "32", "speed4": "79", "speed5": "21", "up_pin_state": "ActiveHigh", "up_pin": "14", "speed1": "27", "down_pin_state": "ActiveHigh"}}

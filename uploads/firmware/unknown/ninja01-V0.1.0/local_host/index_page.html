@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Control your ESP32 using a web interface." />
+  <title>Roboninjaz</title>
+  <meta name="favicon" href="https://img.icons8.com/?size=80&id=dxoYK8bxqiJr&format=png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <style>
+    body {
+      background: radial-gradient(circle, #0a0f1e 30%, #00072D);
+      color: #00eaff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .top-bar {
+      background: linear-gradient(90deg, #030637, #3a0ca3);
+      color: white;
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 0 15px rgba(0, 238, 255, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .top-bar h1 {
+      font-size: 24px;
+      text-shadow: 0 0 12px #00eaff;
+    }
+
+    .top-bar .btn-home {
+      background-color: #ff0080;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 0 10px #ff0080;
+    }
+
+    .top-bar .btn-home:hover {
+      background-color: #ff00ff;
+      box-shadow: 0 0 20px #ff00ff;
+      transform: scale(1.1);
+    }
+    .top-bar img{
+      height: 85px; /* Adjust the height as needed */
+      width: auto;  /* Maintain aspect ratio */
+      max-width: 100%; /* Ensure it doesn't exceed its container */
+    }
+
+    .main-layout {
+      display: flex;
+      margin-top: 100px;
+      flex: 1;
+      padding: 20px;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Responsive: Move image below sidebar on smaller devices */
+    
+    @media (max-width: 768px) {
+      .main-layout {
+        flex-direction: column;
+      }
+        .form-sidebar {
+          max-width: 100%;
+          flex: 1 1 100%;
+          text-align: center;
+        }
+
+        .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+      }
+
+    .sidebar {
+      background: rgba(10, 10, 30, 0.9);
+      width: 300px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 238, 255, 0.7);
+      color: white;
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff;
+    }
+
+    .form-control,
+    .form-select {
+      background-color: #1b1f3b;
+      border: 2px solid #00eaff;
+      color: #00eaff;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      box-shadow: 0 0 10px #00eaff;
+      border-color: #00eaff;
+    }
+
+    .btn-primary {
+      background-color: #00eaff;
+      border: none;
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      text-shadow: 0 0 8px #000;
+      box-shadow: 0 0 15px #00eaff;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+      margin-left: 1rem;
+    }
+
+    .btn-primary:hover {
+      background-color: #00aaff;
+      box-shadow: 0 0 25px #00eaff;
+      transform: scale(1.05);
+    }
+
+    .image-container {
+      flex: 1.5;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-container img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0, 238, 255, 0.7);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(90deg, #030637, #3a0ca3);
+      width: 100%;
+      color: white;
+      box-shadow: 0 0 10px rgba(0, 238, 255, 0.5);
+      margin-top: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Fixed Top Bar with Home Button and Update Firmware Button -->
+  
+  <div class="top-bar">
+    <div>
+        <img src="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/RoboNinjalogogreen.png" alt="Logo" >
+        
+    </div>
+    <h1>RoboNinjaz 1.0</h1>
+    <a href="/config" class="btn-home">Project Configuration</a>
+  </div>
+  <div class="content-wrapper"> 
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+      <h2 class="mb-4">Project Selection Panel</h2>
+      <form method="POST">
+        <div class="form-container">
+          <h3 class="mb-4">S/N: PB0b2c5400001</h3>
+          <label for="exampleDropdown" class="form-label">Select Project: </label>
+          <!-- Dropdown for selecting project -->
+          <select id="mydropdown" name="selectedItem" class="form-select" required>
+<option value="">--Select Project--</option>
+<option value="FireGuard: Intelligent Fire Detection">FireGuard: Intelligent Fire Detection</option>
+<option value="SentiLume: Intelligent street illumination">SentiLume: Intelligent street illumination</option>
+<option value="CountMaster: Student headcount Tracker">CountMaster: Student headcount Tracker</option>
+<option value="DistanceX: Digital Range Finder">DistanceX: Digital Range Finder</option>
+<option value="AutoGate: Self opening gate">AutoGate: Self opening gate</option>
+</select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="nextButton" style="display: none;">Set Project</button>
+      </form>
+    </div>
+
+    <!-- Image Container -->
+    <div class="image-container">
+      <a id="imageLink" href="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/default.jpeg">
+      <img id="image" src="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/default.jpeg" alt="Selected Image">
+      </a>
+    </div>
+  </div>
+</div>
+
+  <!-- Footer Section with Firmware Update Button -->
+  <footer>
+    <a class="btn-home" href="/checkUpdate">Check for updates</a>
+    <p>roboninjaz.com | Powered by Prosol Technologies</p>
+  </footer>
+
+  <script>
+    // Function to handle the dropdown change event and update the image
+    document.getElementById('mydropdown').addEventListener("change", function () {
+      var selectedValue = this.value;
+      var image_name = selectedValue.split(":")[0]; // Remove spaces from selected value
+      var imgSrc=""
+      if(selectedValue==""){
+        imgSrc="https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/default.jpeg"
+      }else{
+        imgSrc = "https://raw.githubusercontent.com/ADITHMR/probot_Images/refs/heads/main/" + image_name + ".jpeg";
+
+      }
+      document.getElementById('image').src = imgSrc; // Update the image source
+      document.getElementById('imageLink').href = imgSrc; // Update the image link
+
+      // Show or hide the "Next" button based on dropdown selection
+      var nextButton = document.getElementById('nextButton');
+      if (selectedValue === "") {
+        nextButton.style.display = "none"; // Hide the "Next" button
+      } else {
+        nextButton.style.display = "inline-block"; // Show the "Next" button
+      }
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+

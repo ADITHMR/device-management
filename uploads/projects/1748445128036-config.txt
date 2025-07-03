@@ -1,0 +1,1 @@
+{"project_name": "SentiLume: Intelligent street illumination", "params": {"led_pin": "5", "sensor_active_state": "Active High", "buzzer_enable": "Enabled", "sensor_pin": "39", "buzzer_pin": "32", "led_strip_Enable": "Enabled", "led_num_pixels": "12"}}

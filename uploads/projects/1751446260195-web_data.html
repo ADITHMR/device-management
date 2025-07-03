@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Responsive sidebar form with dynamic image layout">
+  <title>Roboninjaz - Project Configuration</title>
+  <link rel="icon" href="https://img.icons8.com/?size=80&id=dxoYK8bxqiJr&format=png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+            :root{
+                --facebook-blue:#1877f2;
+                --facebook-dark-blue:#365899;
+                --facebook-light-gray:#f0f2f5;
+                --facebook-medium-gray:#e4e6eb;
+                --facebook-dark-gray:#898f9c;
+                --text-dark:#1c1e21;
+                --text-secondary:#606770;
+                --white:#fff;
+                --border-color:rgba(0,0,0,.1);
+            }
+            body{
+                background-color:var(--facebook-light-gray);
+                color:var(--text-dark);
+                font-family:'Inter','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+                min-height:100vh;
+                display:flex;
+                flex-direction:column;
+                overflow-x:hidden;
+            }
+            body::-webkit-scrollbar{width:8px;}
+            body::-webkit-scrollbar-track{background:var(--facebook-light-gray);}
+            body::-webkit-scrollbar-thumb{background-color:var(--facebook-dark-gray);border-radius:10px;border:2px solid var(--facebook-light-gray);}
+            .top-bar{
+                background-color:var(--facebook-blue);
+                box-shadow:0 2px 10px rgba(0,0,0,.1);
+                position:sticky;
+                top:0;
+                left:0;
+                width:100%;
+                z-index:1000;
+                padding:10px 25px;
+                border-bottom:1px solid var(--facebook-dark-blue);
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+            }
+            .top-bar h1{
+                font-size:1.6rem;
+                color:var(--white);
+                font-weight:600;
+                letter-spacing:.2px;
+                margin-bottom:0;
+            }
+            .top-bar img{height:40px;width:auto;filter:none;margin-right:15px;}
+            .btn-action{
+                background-color:var(--white);
+                color:var(--facebook-blue);
+                border:1px solid var(--facebook-blue);
+                padding:6px 18px;
+                border-radius:6px;
+                font-weight:500;
+                box-shadow:0 1px 4px rgba(0,0,0,.1);
+                text-decoration:none;
+            }
+            .btn-action:hover{background-color:var(--facebook-blue);color:var(--white);box-shadow:0 2px 6px rgba(0,0,0,.2);}
+            .content-wrapper{
+                flex:1;
+                display:flex;
+                flex-direction:column;
+                padding-top:80px;
+                padding-bottom:20px;
+                padding-left:20px;
+                padding-right:20px;
+            }
+            .content-container{
+                flex:1;
+                display:flex;
+                flex-wrap:wrap;
+                gap:20px;
+                justify-content:center;
+                max-width:1500px;
+                margin:0 auto;
+                min-height:calc(100vh - 80px - 55px);
+            }
+            .card-facebook{
+                background-color:var(--white);
+                border-radius:8px;
+                box-shadow:0 2px 12px rgba(0,0,0,.1);
+                border:1px solid var(--facebook-medium-gray);
+                padding:30px;
+                display:flex;
+                flex-direction:column;
+            }
+            .form-sidebar{flex:0 0 350px;max-width:350px;}
+            .form-sidebar h2,.form-sidebar h5{color:var(--text-dark);font-weight:600;margin-bottom:1.5rem;}
+            .form-label{font-weight:500;color:var(--text-dark);margin-bottom:.4rem;}
+            .form-control,.form-select{
+                background-color:var(--white);
+                border:1px solid var(--facebook-medium-gray);
+                color:var(--text-dark);
+                border-radius:6px;
+                padding:.5rem .8rem;
+            }
+            .form-control:focus,.form-select:focus{
+                box-shadow:0 0 0 3px rgba(24,119,242,.25);
+                border-color:var(--facebook-blue);
+                background-color:var(--white);
+                color:var(--text-dark);
+                outline:none;
+            }
+            .form-select option{background-color:var(--white);color:var(--text-dark);padding:8px;}
+            .form-select option:checked,.form-select option:hover{background-color:var(--facebook-blue);color:var(--white);}
+            .form-check-input{background-color:var(--facebook-medium-gray);border:1px solid var(--facebook-dark-gray);}
+            .form-check-input:checked{background-color:var(--facebook-blue);border-color:var(--facebook-blue);}
+            .form-check-label{color:var(--text-dark);font-weight:normal;}
+            .btn-submit{
+                background-color:var(--facebook-blue);
+                border:none;
+                color:var(--white);
+                font-size:1rem;
+                font-weight:600;
+                padding:10px 20px;
+                border-radius:6px;
+                cursor:pointer;
+                box-shadow:0 2px 8px rgba(24,119,242,.3);
+                width:100%;
+                margin-top:20px;
+            }
+            .btn-submit:hover{background-color:var(--facebook-dark-blue);box-shadow:0 4px 10px rgba(24,119,242,.5);}
+            .description-and-image-container{flex:1;display:flex;flex-direction:column;gap:20px;}
+            .form-description{
+                background-color:var(--facebook-light-gray);
+                border-left:4px solid var(--facebook-blue);
+                border-radius:8px;
+                padding:20px;
+                font-size:1rem;
+                line-height:1.6;
+                color:var(--text-dark);
+                box-shadow:inset 0 1px 3px rgba(0,0,0,.05);
+            }
+            .form-description strong{color:var(--facebook-blue);}
+            .image-container{
+                background-color:var(--white);
+                border:1px solid var(--facebook-medium-gray);
+                border-radius:8px;
+                box-shadow:0 2px 12px rgba(0,0,0,.1);
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                padding:20px;
+            }
+            .image-container img{max-width:100%;height:auto;border-radius:6px;object-fit:contain;}
+            .image-container img:hover{box-shadow:0 4px 15px rgba(0,0,0,.2);}
+            .image-gallery{
+                background-color:var(--white);
+                border:1px solid var(--facebook-medium-gray);
+                border-radius:8px;
+                box-shadow:0 2px 12px rgba(0,0,0,.1);
+                padding:30px;
+            }
+            .image-gallery h2{color:var(--text-dark);font-weight:600;margin-bottom:25px;text-align:center;}
+            .image-gallery .row{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;}
+            .image-gallery .col{flex:0 0 auto;width:240px;text-align:center;}
+            .image-gallery img{
+                width:100%; /* Changed to 100% to fill column width */
+                height:135px; /* Consistent height for gallery images */
+                object-fit:cover;
+                border-radius:6px;
+                border:1px solid var(--facebook-medium-gray);
+                transition:transform .2s ease,box-shadow .2s ease;
+                cursor:pointer;
+            }
+            .image-gallery img:hover{transform:scale(1.05);box-shadow:0 4px 15px rgba(0,0,0,.2);}
+            .bottom-separator{border:0;height:1px;background-color:var(--facebook-medium-gray);margin:1rem 0;}
+            footer{
+                background-color:var(--white);
+                box-shadow:0 -2px 10px rgba(0,0,0,.05);
+                padding:15px;
+                color:var(--text-secondary);
+                border-top:1px solid var(--facebook-medium-gray);
+                text-align:center;
+                margin-top:auto;
+            }
+            footer p{margin-bottom:0;font-size:.8rem;opacity:.9;}
+            @media (max-width:992px){
+                .content-container{flex-direction:column;align-items:center;gap:20px;}
+                .form-sidebar{flex:1 1 100%;max-width:500px;margin-bottom:0;}
+                .description-and-image-container{flex:1 1 100%;max-width:100%;}
+                .image-gallery .col{width:48%;max-width:240px;}
+            }
+            @media (max-width:768px){
+                .top-bar{flex-direction:column;align-items:center;gap:10px;}
+                .top-bar h1{font-size:1.4rem;}
+                .content-wrapper{padding-top:100px;padding-left:10px;padding-right:10px;}
+                .image-gallery .col{width:100%;max-width:250px;}
+            }
+        </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <header class="top-bar">
+    <div class="d-flex align-items-center">
+      <img src="https://api.roboninjaz.com/images/projects/logo.png" alt="Logo">
+      <h1>Roboninjaz - Project Configuration</h1>
+    </div>
+    <a href="/" class="btn-action">Home</a>
+  </header>
+  <main class="content-wrapper">
+    <div class="content-container">
+      <section class="form-sidebar card-facebook">
+        <h5 id="form-ID-top" class="text-secondary">Project Id: NJ1015</h5>
+        <h5 id="form-heading-top" class="text-secondary">TouchFlow: Intelligent Fan Control</h5>
+        <h2 id="form-heading-main" class="mb-4">Settings:</h2>
+        <form id="dynamic-form" action="/project" method="POST"></form>
+      </section>
+      <section class="description-and-image-container">
+        <div class="card-facebook form-description">
+          <h2 class="mb-3">TouchFlow: Intelligent Fan Control</h2>
+          <p><strong>Overview:</strong> <b>A detailed description of the project.</b></p>
+        </div>
+        <div class="image-container">
+          <a id="imageLink" href="https://api.roboninjaz.com/images/projects/TouchFlow.jpeg">
+            <img id="dynamic-image" src="https://api.roboninjaz.com/images/projects/TouchFlow.jpeg" alt="Project Image: TouchFlow: Intelligent Fan Control" style="cursor: pointer;" onerror="this.onerror=null; this.src='https://placehold.co/400x250/cccccc/000000?text=Image+Not+Found';">
+          </a>
+        </div>
+        <div class="image-gallery card-facebook">
+          <h2>Project Gallery</h2>
+          <div class="row justify-content-center">
+            
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+              <figure style="margin: 0;">
+                <img src="https://api.roboninjaz.com/images/projects/TouchFlow.jpeg" alt="Gallery Image: About" onclick="updateMainImage(this.src)" style="cursor: pointer;" onerror="this.onerror=null; this.src='https://placehold.co/240x135/cccccc/000000?text=Error';">
+                <figcaption style="text-align: center; font-size: 0.9em; color: var(--text-secondary); margin-top: 5px;">About</figcaption>
+              </figure>
+            </div>
+                
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+              <figure style="margin: 0;">
+                <img src="https://api.roboninjaz.com/images/projects/TouchFlow_circuit.jpeg" alt="Gallery Image: Wiring" onclick="updateMainImage(this.src)" style="cursor: pointer;" onerror="this.onerror=null; this.src='https://placehold.co/240x135/cccccc/000000?text=Error';">
+                <figcaption style="text-align: center; font-size: 0.9em; color: var(--text-secondary); margin-top: 5px;">Wiring</figcaption>
+              </figure>
+            </div>
+                
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <a href="/checkUpdate">Check for Update</a>
+    <p>www.roboninjaz.com | Powered by Prosol Technologies</p>
+  </footer>
+  <script type="application/json" id="inputs-list">[{"type": "select", "name": "fan_pin1", "label": "Fan Pin 1", "required": true, "options": ["2", "4", "5", "12", "13", "14", "15", "16", "17", "18", "19", "21", "22", "23", "25", "26", "27", "32", "33"], "defaultValue": "12"}, {"type": "select", "name": "fan_pin2", "label": "Fan Pin 2", "required": true, "options": ["2", "4", "5", "12", "13", "14", "15", "16", "17", "18", "19", "21", "22", "23", "25", "26", "27", "32", "33"], "defaultValue": "13"}, {"type": "select", "name": "up_pin", "label": "Shift Up Switch Pin", "required": true, "options": ["2", "4", "5", "12", "13", "14", "15", "16", "17", "18", "19", "21", "22", "23", "25", "26", "27", "32", "33", "34", "35", "36", "39"], "defaultValue": "14"}, {"type": "radio", "name": "up_pin_state", "label": "Shift Up Switch Pin State -", "required": true, "options": ["Active Low", "ActiveHigh"], "defaultValue": "ActiveHigh"}, {"type": "select", "name": "down_pin", "label": "Shift Down Switch Pin", "required": true, "options": ["2", "4", "5", "12", "13", "14", "15", "16", "17", "18", "19", "21", "22", "23", "25", "26", "27", "32", "33", "34", "35", "36", "39"], "defaultValue": "15"}, {"type": "radio", "name": "down_pin_state", "label": "Shift Down Switch  Pin State -", "required": true, "options": ["Active Low", "ActiveHigh"], "defaultValue": "ActiveHigh"}, {"type": "checkbox", "name": "buzzer_enabled", "label": "Enable Buzzer", "required": true, "defaultValue": true}, {"type": "select", "name": "buzzer_pin", "label": "Buzzer Pin", "required": true, "options": ["4", "5", "12", "13", "14", "15", "16", "17", "18", "19", "21", "22", "23", "25", "26", "27", "32", "33"], "defaultValue": "32"}, {"type": "range", "name": "speed1", "label": "Speed 1 -", "required": true, "min": 0, "max": 100, "step": 1, "value": 0}, {"type": "range", "name": "speed2", "label": "Speed 2 -", "required": true, "min": 0, "max": 100, "step": 1, "value": 20}, {"type": "range", "name": "speed3", "label": "Speed 3 -", "required": true, "min": 0, "max": 100, "step": 1, "value": 40}, {"type": "range", "name": "speed4", "label": "Speed 4 -", "required": true, "min": 0, "max": 100, "step": 1, "value": 60}, {"type": "range", "name": "speed5", "label": "Speed 5 -", "required": true, "min": 0, "max": 100, "step": 1, "value": 80}, {"type": "range", "name": "speed6", "label": "Speed 6 -", "required": true, "min": 0, "max": 100, "step": 1, "value": 100}]</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script>
+            function generateForm(){
+                let inputsList=[];
+                try{
+                    const inputsListElement=document.getElementById('inputs-list');
+                    if(inputsListElement){
+                        inputsList=JSON.parse(inputsListElement.textContent);
+                    } else {
+                        return;
+                    }
+                } catch(e){
+                    return;
+                }
+                const form=document.getElementById('dynamic-form');
+                if(!form){
+                    return;
+                }
+                form.innerHTML='';
+                inputsList.forEach((input,index)=>{
+                    const div=document.createElement('div');
+                    div.classList.add('mb-3');
+                    if(input.type==='checkbox'){
+                        const formCheckDiv=document.createElement('div');
+                        formCheckDiv.classList.add('form-check','form-switch');
+                        const checkbox=document.createElement('input');
+                        checkbox.classList.add('form-check-input');
+                        checkbox.setAttribute('type','checkbox');
+                        checkbox.setAttribute('id',input.name);
+                        checkbox.setAttribute('name',input.name);
+                        checkbox.setAttribute('value','true');
+                        if(input.defaultValue)checkbox.checked=true;
+                        const checkboxLabel=document.createElement('label');
+                        checkboxLabel.classList.add('form-check-label');
+                        checkboxLabel.setAttribute('for',input.name);
+                        checkboxLabel.textContent=input.label;
+                        formCheckDiv.appendChild(checkbox);
+                        formCheckDiv.appendChild(checkboxLabel);
+                        div.appendChild(formCheckDiv);
+                    } else {
+                        const label=document.createElement('label');
+                        label.classList.add('form-label');
+                        label.setAttribute('for',input.name);
+                        label.textContent=input.label;
+                        div.appendChild(label);
+                        if(input.type==='radio'){
+                            const options=Array.isArray(input.options)?input.options:[];
+                            options.forEach(option=>{
+                                const divRadio=document.createElement('div');
+                                divRadio.classList.add('form-check','form-check-inline');
+                                const radioInput=document.createElement('input');
+                                radioInput.classList.add('form-check-input');
+                                radioInput.setAttribute('type','radio');
+                                radioInput.setAttribute('id',`${input.name}-${option.replace(/\s+/g,'-')}`);
+                                radioInput.setAttribute('name',input.name);
+                                radioInput.setAttribute('value',option);
+                                radioInput.required=input.required;
+                                if(input.defaultValue&&String(option)===String(input.defaultValue))radioInput.checked=true;
+                                const radioLabel=document.createElement('label');
+                                radioLabel.classList.add('form-check-label');
+                                radioLabel.setAttribute('for',`${input.name}-${option.replace(/\s+/g,'-')}`);
+                                radioLabel.textContent=option;
+                                divRadio.appendChild(radioInput);
+                                divRadio.appendChild(radioLabel);
+                                div.appendChild(divRadio);
+                            });
+                        } else if(input.type==='select'){
+                            const select=document.createElement('select');
+                            select.classList.add('form-select');
+                            select.setAttribute('name',input.name);
+                            select.setAttribute('id',input.name);
+                            select.required=input.required;
+                            const options=Array.isArray(input.options)?input.options:[];
+                            options.forEach(option=>{
+                                const opt=document.createElement('option');
+                                opt.value=option;
+                                opt.textContent=option;
+                                select.appendChild(opt);
+                                if(input.defaultValue&&String(option)===String(input.defaultValue))opt.selected=true;
+                            });
+                            div.appendChild(select);
+                        } else {
+                            const inputField=document.createElement('input');
+                            inputField.classList.add('form-control');
+                            inputField.setAttribute('type',input.type);
+                            inputField.setAttribute('name',input.name);
+                            inputField.setAttribute('id',input.name);
+                            inputField.setAttribute('placeholder',input.placeholder||'');
+                            if(input.min!==undefined)inputField.setAttribute('min',input.min);
+                            if(input.max!==undefined)inputField.setAttribute('max',input.max);
+                            if(input.step!==undefined)inputField.setAttribute('step',input.step);
+                            if(input.type==='range'&&input.value!==undefined){
+                                inputField.setAttribute('value',input.value);
+                                const valueDisplay=document.createElement('span');
+                                valueDisplay.style.marginLeft='15px';
+                                valueDisplay.textContent=input.value||inputField.value||'0';
+                                inputField.addEventListener('input',()=>{valueDisplay.textContent=inputField.value;});
+                                div.appendChild(inputField);
+                                div.appendChild(valueDisplay);
+                            } else if(input.defaultValue!==undefined&&input.defaultValue!==null){
+                                inputField.value=input.defaultValue;
+                            }
+                            inputField.required=input.required;
+                            div.appendChild(inputField);
+                        }
+                    }
+                    if(input.type!=='radio'){
+                        const bottomSeparator=document.createElement('hr');
+                        bottomSeparator.classList.add('bottom-separator');
+                        div.appendChild(bottomSeparator);
+                    }
+                    form.appendChild(div);
+                });
+                const hiddenInput=document.createElement('input');
+                hiddenInput.type='hidden';
+                hiddenInput.name='project';
+                hiddenInput.value='{project_name_full}';
+                form.appendChild(hiddenInput);
+                const submitButton=document.createElement('button');
+                submitButton.type='submit';
+                submitButton.classList.add('btn','btn-submit');
+                submitButton.textContent='Submit';
+                form.appendChild(submitButton);
+            }
+            function setDynamicImage(){
+                const formHeadingElement=document.getElementById("form-heading-top");
+                if(!formHeadingElement){return;}
+                const formHeading=formHeadingElement.textContent.trim();
+                let firstWord=formHeading.split(":")[0].trim().replace(" ",'%20');
+                if(!firstWord){firstWord="default";}
+                const imageElement=document.getElementById("dynamic-image");
+                const imageLink=document.getElementById('imageLink');
+                const imgSrc=`https://api.roboninjaz.com/images/projects/${firstWord}.jpeg`;
+                if(imageElement){
+                    imageElement.src=imgSrc;
+                    imageElement.onerror=()=>{
+                        imageElement.src=`https://placehold.co/400x250/cccccc/000000?text=Image+Not+Found`;
+                    };
+                }
+                if(imageLink)imageLink.href=imgSrc;
+            }
+            function updateMainImage(newImageUrl){
+                const mainImage=document.getElementById('dynamic-image');
+                const mainImageLink=document.getElementById('imageLink');
+                if(mainImage){mainImage.src=newImageUrl;}
+                if(mainImageLink){mainImageLink.href=newImageUrl;}
+            }
+            document.addEventListener('DOMContentLoaded',function(){
+                generateForm();
+                setDynamicImage();
+            });
+        </script>
+</body>
+</html>
+        
